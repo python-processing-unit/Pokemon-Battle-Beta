@@ -81,7 +81,7 @@ def physical_attack(pokea,poked,attack_name):#Attacking Pokemon, Defending Pokem
         print(poked.name+"'s HP: "+str(int(poked.hp))+"/"+str(int(poked.max_hp)))
 #Code for a special attack
 def special_attack(pokea,poked,attack_name):#Attacking Pokemon, Defending Pokemon, Attack
-    damage = (((14.285714285714286*attack_name.power*(pokea.special/poked.special))/50)+2)
+    damage = (((14.285714285714286*attack_name.power*(pokea.special/poked.special))/50)+2)*(random.randint(85,100)/100)
     try:
         damage = damage * effective(attack_name.move_type,poked.type1,poked.type2)
     except:
