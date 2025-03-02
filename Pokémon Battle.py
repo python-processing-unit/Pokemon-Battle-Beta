@@ -1,12 +1,25 @@
 import moves as mv
 import os
 import pokemon as pkmn
+try:
+    import win32com.client
+except:
+    pass
 import random
 import sys
+import time
 import trainers
 import type_matrix as ty
 path = os.path.abspath(sys.argv[0])
 path = path.replace("Pokémon Battle.py","")
+def prnt(text):
+    print(text)
+    try:
+        text = text.replace("/"," out of ")
+        speaker = win32com.client.Dispatch("SAPI.SpVoice")
+        speaker.Speak(text)
+    except:
+        time.sleep(1.2)
 #Calculate effectiveness of one type attacking another
 def effective(e,t1,t2=None):#Attack Type, Defending Pokemon Type 1, Defending Pokemon Type 2
     list_index1 = -1
@@ -54,7 +67,7 @@ def get_attack(poke):
             attk = input("Attack = ")
             return(poke.move_list[int(attk)-1])
         except:
-            print("Invalid input")
+            prnt("Invalid input")
 #Code for a physical attack
 def physical_attack(pokea,poked,attack_name,active_attacker):#Attacking Pokemon, Defending Pokemon, Attack
     try:
@@ -67,35 +80,34 @@ def physical_attack(pokea,poked,attack_name,active_attacker):#Attacking Pokemon,
             damage = damage * 1.5
         poked.handle_attack(damage)
         if(active_attacker==True):
-            print("Player's "+pokea.name+" used "+attack_name.name)
+            prnt("Player's "+pokea.name+" used "+attack_name.name)
         else:
-            print("Opponent's "+pokea.name+" used "+attack_name.name)
+            prnt("Opponent's "+pokea.name+" used "+attack_name.name)
         if((effective(attack_name.move_type,poked.type1) == 2.0) or (effective(attack_name.move_type,poked.type2) == 2.0)):
-            print("It's Super Effective!!!")
+            prnt("It's Super Effective!!!")
         elif((effective(attack_name.move_type,poked.type1) == 0.5) or (effective(attack_name.move_type,poked.type2) == 0.5)):
-            print("It's not very effective.")
-        print("Did "+str(int(damage))+" damage to "+poked.name)
+            prnt("It's not very effective.")
         if(active_attacker==True):
-            print("Did "+str(int(damage))+" damage to player's "+poked.name)
-            print("Player's "+pokea.name+"'s HP: "+str(int(pokea.hp))+"/"+str(int(pokea.max_hp)))
-            print("Opponent "+poked.name+"'s HP: "+str(int(poked.hp))+"/"+str(int(poked.max_hp)))
+            prnt("Did "+str(int(damage))+" damage to opponent's "+poked.name)
+            prnt("Player's "+pokea.name+"'s HP: "+str(int(pokea.hp))+"/"+str(int(pokea.max_hp)))
+            prnt("Opponent "+poked.name+"'s HP: "+str(int(poked.hp))+"/"+str(int(poked.max_hp)))
         else:
-            print("Did "+str(int(damage))+" damage to opponent's "+poked.name)
-            print("Opponent's "+pokea.name+"'s HP: "+str(int(pokea.hp))+"/"+str(int(pokea.max_hp)))
-            print("Player's "+poked.name+"'s HP: "+str(int(poked.hp))+"/"+str(int(poked.max_hp)))
+            prnt("Did "+str(int(damage))+" damage to player's "+poked.name)
+            prnt("Opponent's "+pokea.name+"'s HP: "+str(int(pokea.hp))+"/"+str(int(pokea.max_hp)))
+            prnt("Player's "+poked.name+"'s HP: "+str(int(poked.hp))+"/"+str(int(poked.max_hp)))
     except Exception as E:
-        print(pokea.name+" used "+attack_name.name)
-        print("But it did nothing")
+        prnt(pokea.name+" used "+attack_name.name)
+        prnt("But it did nothing")
         if(active_attacker==True):
-            print("Player's "+pokea.name+" used "+attack_name.name)
-            print("But it did nothing")
-            print("Player's "+pokea.name+"'s HP: "+str(int(pokea.hp))+"/"+str(int(pokea.max_hp)))
-            print("Opponent's "+poked.name+"'s HP: "+str(int(poked.hp))+"/"+str(int(poked.max_hp)))
+            prnt("Player's "+pokea.name+" used "+attack_name.name)
+            prnt("But it did nothing")
+            prnt("Player's "+pokea.name+"'s HP: "+str(int(pokea.hp))+"/"+str(int(pokea.max_hp)))
+            prnt("Opponent's "+poked.name+"'s HP: "+str(int(poked.hp))+"/"+str(int(poked.max_hp)))
         else:
-            print("Opponent's "+pokea.name+" used "+attack_name.name)
-            print("But it did nothing")
-            print("Opponent's "+pokea.name+"'s HP: "+str(int(pokea.hp))+"/"+str(int(pokea.max_hp)))
-            print("Player's "+poked.name+"'s HP: "+str(int(poked.hp))+"/"+str(int(poked.max_hp)))
+            prnt("Opponent's "+pokea.name+" used "+attack_name.name)
+            prnt("But it did nothing")
+            prnt("Opponent's "+pokea.name+"'s HP: "+str(int(pokea.hp))+"/"+str(int(pokea.max_hp)))
+            prnt("Player's "+poked.name+"'s HP: "+str(int(poked.hp))+"/"+str(int(poked.max_hp)))
 #Code for a special attack
 def special_attack(pokea,poked,attack_name,active_attacker):#Attacking Pokemon, Defending Pokemon, Attack
     try:
@@ -108,35 +120,34 @@ def special_attack(pokea,poked,attack_name,active_attacker):#Attacking Pokemon, 
             damage = damage * 1.5
         poked.handle_attack(damage)
         if(active_attacker==True):
-            print("Player's "+pokea.name+" used "+attack_name.name)
+            prnt("Player's "+pokea.name+" used "+attack_name.name)
         else:
-            print("Opponent's "+pokea.name+" used "+attack_name.name)
+            prnt("Opponent's "+pokea.name+" used "+attack_name.name)
         if((effective(attack_name.move_type,poked.type1) == 2.0) or (effective(attack_name.move_type,poked.type2) == 2.0)):
-            print("It's Super Effective!!!")
+            prnt("It's Super Effective!!!")
         elif((effective(attack_name.move_type,poked.type1) == 0.5) or (effective(attack_name.move_type,poked.type2) == 0.5)):
-            print("It's not very effective.")
-        print("Did "+str(int(damage))+" damage to "+poked.name)
+            prnt("It's not very effective.")
         if(active_attacker==True):
-            print("Did "+str(int(damage))+" damage to player's "+poked.name)
-            print("Player's "+pokea.name+"'s HP: "+str(int(pokea.hp))+"/"+str(int(pokea.max_hp)))
-            print("Opponent's "+poked.name+"'s HP: "+str(int(poked.hp))+"/"+str(int(poked.max_hp)))
+            prnt("Did "+str(int(damage))+" damage to opponent's "+poked.name)
+            prnt("Player's "+pokea.name+"'s HP: "+str(int(pokea.hp))+"/"+str(int(pokea.max_hp)))
+            prnt("Opponent "+poked.name+"'s HP: "+str(int(poked.hp))+"/"+str(int(poked.max_hp)))
         else:
-            print("Did "+str(int(damage))+" damage to opponent's "+poked.name)
-            print("Opponent's "+pokea.name+"'s HP: "+str(int(pokea.hp))+"/"+str(int(pokea.max_hp)))
-            print("Player's "+poked.name+"'s HP: "+str(int(poked.hp))+"/"+str(int(poked.max_hp)))
+            prnt("Did "+str(int(damage))+" damage to player's "+poked.name)
+            prnt("Opponent's "+pokea.name+"'s HP: "+str(int(pokea.hp))+"/"+str(int(pokea.max_hp)))
+            prnt("Player's "+poked.name+"'s HP: "+str(int(poked.hp))+"/"+str(int(poked.max_hp)))
     except Exception as E:
-        print(pokea.name+" used "+attack_name.name)
-        print("But it did nothing")
+        prnt(pokea.name+" used "+attack_name.name)
+        prnt("But it did nothing")
         if(active_attacker==True):
-            print("Player's "+pokea.name+" used "+attack_name.name)
-            print("But it did nothing")
-            print("Player's "+pokea.name+"'s HP: "+str(int(pokea.hp))+"/"+str(int(pokea.max_hp)))
-            print("Opponent's "+poked.name+"'s HP: "+str(int(poked.hp))+"/"+str(int(poked.max_hp)))
+            prnt("Player's "+pokea.name+" used "+attack_name.name)
+            prnt("But it did nothing")
+            prnt("Player's "+pokea.name+"'s HP: "+str(int(pokea.hp))+"/"+str(int(pokea.max_hp)))
+            prnt("Opponent's "+poked.name+"'s HP: "+str(int(poked.hp))+"/"+str(int(poked.max_hp)))
         else:
-            print("Opponent's "+pokea.name+" used "+attack_name.name)
-            print("But it did nothing")
-            print("Opponent's "+pokea.name+"'s HP: "+str(int(pokea.hp))+"/"+str(int(pokea.max_hp)))
-            print("Player's "+poked.name+"'s HP: "+str(int(poked.hp))+"/"+str(int(poked.max_hp)))
+            prnt("Opponent's "+pokea.name+" used "+attack_name.name)
+            prnt("But it did nothing")
+            prnt("Opponent's "+pokea.name+"'s HP: "+str(int(pokea.hp))+"/"+str(int(pokea.max_hp)))
+            prnt("Player's "+poked.name+"'s HP: "+str(int(poked.hp))+"/"+str(int(poked.max_hp)))
 def attack(pokea,poked,attack_name,active_attacker):#Attacking Pokemon, Defending Pokemon, Attack
     ran = lcg.next()
     if(attack_name == None):
@@ -149,15 +160,15 @@ def attack(pokea,poked,attack_name,active_attacker):#Attacking Pokemon, Defendin
                 physical_attack(pokea,poked,attack_name,active_attacker)
         else:
             if(active_attacker==True):
-                print("Player's "+pokea.name+" used "+attack_name.name)
-                print("But it missed")
-                print("Player's "+pokea.name+"'s HP: "+str(int(pokea.hp))+"/"+str(int(pokea.max_hp)))
-                print("Opponent's "+poked.name+"'s HP: "+str(int(poked.hp))+"/"+str(int(poked.max_hp)))
+                prnt("Player's "+pokea.name+" used "+attack_name.name)
+                prnt("But it missed")
+                prnt("Player's "+pokea.name+"'s HP: "+str(int(pokea.hp))+"/"+str(int(pokea.max_hp)))
+                prnt("Opponent's "+poked.name+"'s HP: "+str(int(poked.hp))+"/"+str(int(poked.max_hp)))
             else:
-                print("Opponent's "+pokea.name+" used "+attack_name.name)
-                print("But it missed")
-                print("Opponent's "+pokea.name+"'s HP: "+str(int(pokea.hp))+"/"+str(int(pokea.max_hp)))
-                print("Player's "+poked.name+"'s HP: "+str(int(poked.hp))+"/"+str(int(poked.max_hp)))
+                prnt("Opponent's "+pokea.name+" used "+attack_name.name)
+                prnt("But it missed")
+                prnt("Opponent's "+pokea.name+"'s HP: "+str(int(pokea.hp))+"/"+str(int(pokea.max_hp)))
+                prnt("Player's "+poked.name+"'s HP: "+str(int(poked.hp))+"/"+str(int(poked.max_hp)))
 #Opponent Logic
 def opponent_attack():
     atk_select = random.randint(1,4)
@@ -197,13 +208,13 @@ def battle():
                 print(pokemon_party[2].name+" (3)")
                 switch = input("")
                 try:
-                    print(active.name+", return")
+                    prnt(active.name+", return")
                     active = pokemon_party[int(switch)-1]
-                    print("Go "+active.name)
+                    prnt("Go "+active.name)
                     opponent_attack()
                     break
                 except:
-                    print("Invalid input")
+                    prnt("Invalid input")
 lcg = LCG(seed=random.randint(0,99999))
 pokemon_party = trainers.red()
 active = pokemon_party[0]

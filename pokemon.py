@@ -1,4 +1,5 @@
 import moves as mv
+import random
 import type_matrix as ty
 def calc_stat(BaseStat):
     return(((((BaseStat+15)*2+31.5)*50)/100)+5)
@@ -17,6 +18,11 @@ class pokemon():
         self.move2 = atk2
         self.move3 = atk3
         self.move4 = atk4
+        self.burned = False
+        self.poisoned = False
+        self.sleeping = False
+        self.paralyzed = False
+        self.frozen = False
         self.move_list = [self.move1,self.move2,self.move3,self.move4]
         self.type1 = t1 if isinstance(t1,int) else ty.types.index(t1)
         self.type2 = t2 if isinstance(t2,int) else(ty.types.index(t2) if t2 else None)
@@ -160,10 +166,10 @@ class oddish(pokemon):
         super().__init__(45,50,55,75,30,mv.absorb(),mv.poison_powder(),mv.stun_spore(),mv.sleep_powder(),"Oddish",ty.grass,t2=ty.poison)
 class gloom(pokemon):
     def __init__(self):
-        super().__init__(60,65,70,85,40,mv.absorb(),mv.poison_powder(),mv.stun_spore(),mv.petaldance(),"Gloom",ty.grass,t2=ty.poison)
+        super().__init__(60,65,70,85,40,mv.absorb(),mv.poison_powder(),mv.stun_spore(),mv.petal_dance(),"Gloom",ty.grass,t2=ty.poison)
 class vileplume(pokemon):
     def __init__(self):
-        super().__init__(75,80,85,100,50,mv.petaldance(),mv.poison_powder(),mv.stun_spore(),mv.solar_beam(),"Vileplume",ty.grass,t2=ty.poison)
+        super().__init__(75,80,85,100,50,mv.petal_dance(),mv.poison_powder(),mv.stun_spore(),mv.solar_beam(),"Vileplume",ty.grass,t2=ty.poison)
 class paras(pokemon):
     def __init__(self):
         super().__init__(35,70,55,55,25,mv.leech_life(),mv.stun_spore(),mv.scratch(),mv.growth(),"Paras",ty.bug,t2=ty.grass)
@@ -202,7 +208,7 @@ class primeape(pokemon):
         super().__init__(65,105,60,60,95,mv.cross_chop(),mv.low_kick(),mv.karate_chop(),mv.fury_swipes(),"Primeape",ty.fighting)
 class growlithe(pokemon):
     def __init__(self):
-        super().__init__(55,70,45,70,60,mv.bite(),mv.roar(),mv.ember(),mv.takedown(),"Growlithe",ty.fire)
+        super().__init__(55,70,45,70,60,mv.bite(),mv.roar(),mv.ember(),mv.take_down(),"Growlithe",ty.fire)
 class arcanine(pokemon):
     def __init__(self):
         super().__init__(90,110,80,100,95,mv.extreme_speed(),mv.roar(),mv.flamethrower(),mv.take_down(),"Arcanine",ty.fire)
@@ -271,10 +277,10 @@ class slowbro(pokemon):
         super().__init__(95,75,110,80,30,mv.psychic_attack(),mv.surf(),mv.amnesia(),mv.thunder_wave(),"Slowbro",ty.water,t2=ty.psychic)
 class magnemite(pokemon):
     def __init__(self):
-        super().__init__(25,35,70,95,45,mv.thunder_shock(),mv.sonic_boom(),mv.thunder_wave(),mv.swift(),"Magnemite",ty.electric,t2=ty.steel)
+        super().__init__(25,35,70,95,45,mv.thunder_shock(),mv.sonic_boom(),mv.thunder_wave(),mv.swift(),"Magnemite",ty.electric)
 class magneton(pokemon):
     def __init__(self):
-        super().__init__(50,60,95,120,70,mv.thunder_shock(),mv.sonic_boom(),mv.thunder_wave(),mv.swift(),"Magneton",ty.electric,t2=ty.steel)
+        super().__init__(50,60,95,120,70,mv.thunder_shock(),mv.sonic_boom(),mv.thunder_wave(),mv.swift(),"Magneton",ty.electric)
 class farfetchd(pokemon):
     def __init__(self):
         super().__init__(52,65,55,58,60,mv.slash(),mv.swords_dance(),mv.fly(),mv.agility(),"Farfetch'd",ty.normal,t2=ty.flying)
@@ -286,10 +292,10 @@ class dodrio(pokemon):
         super().__init__(60,110,70,60,100,mv.drill_peck(),mv.fury_attack(),mv.tri_attack(),mv.agility(),"Dodrio",ty.normal,t2=ty.flying)
 class seel(pokemon):
     def __init__(self):
-        super().__init__(65,45,55,70,45,mv.headbutt(),mv.aurora_beam(),mv.rest(),mv.takedown(),"Seel",ty.water)
+        super().__init__(65,45,55,70,45,mv.headbutt(),mv.aurora_beam(),mv.rest(),mv.take_down(),"Seel",ty.water)
 class dewgong(pokemon):
     def __init__(self):
-        super().__init__(90,70,80,95,70,mv.headbutt(),mv.aurora_beam(),mv.rest(),mv.takedown(),"Dewgong",ty.water,t2=ty.ice)
+        super().__init__(90,70,80,95,70,mv.headbutt(),mv.aurora_beam(),mv.rest(),mv.take_down(),"Dewgong",ty.water,t2=ty.ice)
 class grimer(pokemon):
     def __init__(self):
         super().__init__(80,80,50,40,25,mv.sludge(),mv.disable(),mv.minimize(),mv.harden(),"Grimer",ty.poison)
@@ -346,7 +352,7 @@ class marowak(pokemon):
         super().__init__(60,80,110,50,45,mv.bone_club(),mv.headbutt(),mv.bonemerang(),mv.swords_dance(),"Marowak",ty.ground)
 class hitmonlee(pokemon):
     def __init__(self):
-        super().__init__(50,120,53,35,87,mv.double_kick(),mv.rolling_kick(),mv.jump_kick(),mv.hi_jump_kick(),"Hitmonlee",ty.fighting)
+        super().__init__(50,120,53,35,87,mv.double_kick(),mv.rolling_kick(),mv.jump_kick(),mv.high_jump_kick(),"Hitmonlee",ty.fighting)
 class hitmonchan(pokemon):
     def __init__(self):
         super().__init__(50,105,79,35,76,mv.comet_punch(),mv.fire_punch(),mv.ice_punch(),mv.thunder_punch(),"Hitmonchan",ty.fighting)
@@ -367,7 +373,7 @@ class rhydon(pokemon):
         super().__init__(105,130,120,45,40,mv.stomp(),mv.rock_slide(),mv.fury_attack(),mv.horn_drill(),"Rhydon",ty.ground,t2=ty.rock)
 class chansey(pokemon):
     def __init__(self):
-        super().__init__(250,5,5,35,50,mv.pound(),mv.sing(),mv.softboiled(),mv.counter(),"Chansey",ty.normal)
+        super().__init__(250,5,5,35,50,mv.pound(),mv.sing(),mv.soft_boiled(),mv.counter(),"Chansey",ty.normal)
 class tangela(pokemon):
     def __init__(self):
         super().__init__(65,55,115,100,60,mv.constrict(),mv.bind(),mv.slam(),mv.stun_spore(),"Tangela",ty.grass)
@@ -408,7 +414,7 @@ class magmar(pokemon):
     def __init__(self):
         super().__init__(65,95,57,85,93,mv.fire_punch(),mv.smokescreen(),mv.smokescreen(),mv.fire_blast(),"Magmar",ty.fire)
 class pinsir(pokemon):
-    def __init__():
+    def __init__(self):
         super().__init__(65,125,100,55,85,mv.vice_grip(),mv.seismic_toss(),mv.swords_dance(),mv.guillotine(),"Pinsir",ty.bug)
 class tauros(pokemon):
     def __init__(self):
@@ -457,7 +463,10 @@ class aerodactyl(pokemon):
         super().__init__(80,105,65,60,130,mv.hyper_beam(),mv.sky_attack(),mv.take_down(),mv.bite(),"Aerodactyl",ty.rock,t2=ty.flying)
 class snorlax(pokemon):
     def __init__(self):
-        super().__init__(160,110,65,65,30,mv.hyper_beam(),mv.body_slam(),mv.earthquake(),mv.rest(),"Snorlax",ty.normal)
+        if(random.randint(1,1000)==1000):
+            super().__init__(160,110,65,65,30,mv.hyper_beam(),mv.body_slam(),mv.earthquake(),mv.rest(),"Yo Mama",ty.normal)
+        else:
+            super().__init__(160,110,65,65,30,mv.hyper_beam(),mv.body_slam(),mv.earthquake(),mv.rest(),"Snorlax",ty.normal)
 class articuno(pokemon):
     def __init__(self):
         super().__init__(90,85,100,125,85,mv.blizzard(),mv.fly(),mv.sky_attack(),mv.hyper_beam(),"Articuno",ty.ice,t2=ty.flying)
@@ -481,7 +490,7 @@ class mewtwo(pokemon):
         super().__init__(106,110,90,154,130,mv.psychic_attack(),mv.blizzard(),mv.thunderbolt(),mv.recover(),"Mewtwo",ty.psychic)
 class mew(pokemon):
     def __init__(self):
-        super().__init__(100,100,100,100,100,mv.psychica_attack(),mv.blizzard(),mv.thunderbolt(),mv.soft_boiled(),"Mew",ty.psychic)
+        super().__init__(100,100,100,100,100,mv.psychic_attack(),mv.blizzard(),mv.thunderbolt(),mv.soft_boiled(),"Mew",ty.psychic)
 class missingno(pokemon):
     def __init__(self):
         super().__init__(33,136,0,6,29,mv.water_gun(),mv.water_gun(),mv.sky_attack(),None,"MissingNo",ty.normal)
