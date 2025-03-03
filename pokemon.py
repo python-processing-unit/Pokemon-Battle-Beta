@@ -494,3 +494,16 @@ class mew(pokemon):
 class missingno(pokemon):
     def __init__(self):
         super().__init__(33,136,0,6,29,mv.water_gun(),mv.water_gun(),mv.sky_attack(),None,"MissingNo",ty.normal)
+pokemon_list = [
+    bulbasaur(),ivysaur(),venusaur(),charmander(),charmeleon(),charizard(),squirtle(),wartortle(),blastoise(),caterpie(),metapod(),butterfree(),weedle(),kakuna(),beedrill(),pidgey(),pidgeotto(),pidgeot(),rattata(),raticate(),
+    spearow(),fearow(),ekans(),arbok(),pikachu(),raichu(),sandshrew(),sandslash(),nidoran_f(),nidorina(),nidoqueen(),nidoran_m(),nidorino(),nidoking(),clefairy(),clefable(),vulpix(),ninetales(),jigglypuff(),wigglytuff(),
+    zubat(),golbat(),oddish(),gloom(),vileplume(),paras(),parasect(),venonat(),venomoth(),diglett(),dugtrio(),meowth(),persian(),psyduck(),golduck(),mankey(),primeape(),growlithe(),arcanine(),poliwag(),
+    poliwhirl(),poliwrath(),abra(),kadabra(),alakazam(),machop(),machoke(),machamp(),bellsprout(),weepinbell(),victreebel(),tentacool(),tentacruel(),geodude(),graveler(),golem(),ponyta(),rapidash(),slowpoke(),slowbro(),
+    magnemite(),magneton(),farfetchd(),doduo(),dodrio(),seel(),dewgong(),grimer(),muk(),shellder(),cloyster(),gastly(),haunter(),gengar(),onix(),drowzee(),hypno(),krabby(),kingler(),voltorb(),
+    electrode(),exeggcute(),exeggutor(),cubone(),marowak(),hitmonlee(),hitmonchan(),lickitung(),koffing(),weezing(),rhyhorn(),rhydon(),chansey(),tangela(),kangaskhan(),horsea(),seadra(),goldeen(),seaking(),staryu(),
+    starmie(),mr_mime(),scyther(),jynx(),electabuzz(),magmar(),pinsir(),tauros(),magikarp(),gyarados(),lapras(),ditto(),eevee(),vaporeon(),jolteon(),flareon(),porygon(),omanyte(),omastar(),kabuto(),
+    kabutops(),aerodactyl(),snorlax(),articuno(),zapdos(),moltres(),dratini(),dragonair(),dragonite(),mewtwo(),mew(),missingno()
+]
+'''for i in range(0,150,6):
+    print(pokemon_list[i].name+" ("+str(i+1)+") "+pokemon_list[i+1].name+" ("+str(i+2)+") "+pokemon_list[i+2].name+" ("+str(i+3)+") "+pokemon_list[i+3].name+" ("+str(i+4)+") "+pokemon_list[i+4].name+" ("+str(i+5)+") "+pokemon_list[i+5].name+" ("+str(i+6)+")")
+print("Mew (151)")'''

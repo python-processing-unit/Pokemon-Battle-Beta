@@ -85,6 +85,9 @@ class clamp(move):
 class comet_punch(move):
     def __init__(self):
         super().__init__(normal,18,85,"Comet Punch")
+class confuse_ray(move):
+    def __init__(self):
+        super().__init__(ghost, na, 100, "Confuse Ray")
 class confusion(move):
     def __init__(self):
         super().__init__(psychic,50,100,"Confusion")
@@ -100,6 +103,9 @@ class counter(move):
 class crabhammer(move):
     def __init__(self):
         super().__init__(water,90,85,"Crabhammer")
+class cross_chop(move):
+    def __init__(self):
+        super().__init__(fighting,100,80,"Cross Chop")
 class cut(move):
     def __init__(self):
         super().__init__(normal,50,95,"Cut")
@@ -136,6 +142,9 @@ class dream_eater(move):
 class drill_peck(move):
     def __init__(self):
         super().__init__(flying,80,100,"Drill Peck")
+class dynamic_punch(move):
+    def __init__(self):
+        super().__init__(fighting,100,50,"Dynamic Punch")
 class earthquake(move):
     def __init__(self):
         super().__init__(ground,100,100,"Earthquake")
@@ -148,6 +157,12 @@ class ember(move):
 class explosion(move):
     def __init__(self):
         super().__init__(normal,170,100,"Explosion")
+class extreme_speed(move):
+    def __init__(self):
+        super().__init__(normal,80,100,"Extreme Speed")
+class feather_dance(move):
+    def __init__(self):
+        super().__init__(flying, na, 100, "Feather Dance", s1=2, d1=-2)
 class fire_blast(move):
     def __init__(self):
         super().__init__(fire,120,85,"Fire Blast")
@@ -286,6 +301,9 @@ class mirror_move(move):
 class mist(move):
     def __init__(self):
         super().__init__(ice,na,100,"Mist")
+class moonblast(move):
+    def __init__(self):
+        super().__init__(normal,95,100,"Moonblast")
 class night_shade(move):
     def __init__(self):
         super().__init__(ghost,na,100,"Night Shade")
@@ -301,6 +319,9 @@ class petal_dance(move):
 class pin_missile(move):
     def __init__(self):
         super().__init__(bug,14,85,"Pin Missile")
+class poison_fang(move):
+    def __init__(self):
+        super().__init__(poison, 50, 100, "Poison Fang")
 class poison_gas(move):
     def __init__(self):
         super().__init__(poison,na,55,"Poison Gas")
@@ -313,6 +334,9 @@ class poison_powder(move):
 class pound(move):
     def __init__(self):
         super().__init__(normal,40,100,"Pound")
+class pursuit(move):
+    def __init__(self):
+        super().__init__(normal, 40, 100, "Pursuit")
 class psybeam(move):
     def __init__(self):
         super().__init__(psychic,65,100,"Psybeam")
