@@ -47,6 +47,19 @@ def effective(e,t1,t2=None):#Attack Type, Defending Pokemon Type 1, Defending Po
         effectiveness *= e[list_index2]
     return effectiveness
 na = None
+def expected_value(pokea,poked,attack_name):
+    if(attack_name.move_type in [ty.fire, ty.water, ty.grass, ty.electric, ty.psychic]):
+        damage = (((14.285714285714286*attack_name.power*(pokea.special/poked.special))/50)+2)*0.925
+    else:
+        damage = (((14.285714285714286*attack_name.power*(pokea.attack/poked.defense))/50)+2)*0.925
+    try:
+        damage = damage * effective(attack_name.move_type,poked.type1,poked.type2)
+    except:
+        damage = damage * effective(attack_name.move_type,poked.type1)
+    if((attack_name.move_type == pokea.type1) or (attack_name.move_type==pokea.type2)):
+        damage = damage * 1.5
+    return(damage*(attack_name.accuracy/100))
+    
 #LCG PRNG from Pokémon Gen-I
 class LCG:
     def __init__(self, seed):
@@ -74,7 +87,7 @@ def get_attack(poke):
 #Code for a physical attack
 def physical_attack(pokea,poked,attack_name,active_attacker):#Attacking Pokemon, Defending Pokemon, Attack
     try:
-        damage = (((14.285714285714286*attack_name.power*(pokea.attack/poked.defense))/50)+2)
+        damage = (((14.285714285714286*attack_name.power*(pokea.attack/poked.defense))/50)+2)*(random.randint(85,100)/100)
         try:
             damage = damage * effective(attack_name.move_type,poked.type1,poked.type2)
         except:
@@ -154,14 +167,27 @@ def attack(pokea,poked,attack_name,active_attacker):#Attacking Pokemon, Defendin
                 prnt("But it missed")
 #Opponent Logic
 def opponent_attack():
-    atk_select = random.randint(1,4)
-    if(atk_select == 1):
+    '''dmg = 0
+    if(expected_value(opponent,active,opponent.move1)>dmg):
+        opponent_attack = 1
+        dmg = expected_value(opponent,active,opponent.move1)
+    if(expected_value(opponent,active,opponent.move2)>dmg):
+        opponent_attack = 2
+        dmg = expected_value(opponent,active,opponent.move2)
+    if(expected_value(opponent,active,opponent.move3)>dmg):
+        opponent_attack = 3
+        dmg = expected_value(opponent,active,opponent.move3)
+    if(expected_value(opponent,active,opponent.move4)>dmg):
+        opponent_attack = 4
+        dmg = expected_value(opponent,active,opponent.move4)'''
+    opponent_attack = random.randint(1,4)
+    if(opponent_attack==1):
         attack(opponent,active,opponent.move1,False)
-    elif(atk_select == 2):
+    elif(opponent_attack==2):
         attack(opponent,active,opponent.move2,False)
-    elif(atk_select == 3):
+    elif(opponent_attack==3):
         attack(opponent,active,opponent.move3,False)
-    else:
+    elif(opponent_attack==4):
         attack(opponent,active,opponent.move4,False)
 #Code to launch a battle, and the battle logic
 def battle():

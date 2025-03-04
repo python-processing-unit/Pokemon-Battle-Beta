@@ -36,5 +36,7 @@ def red():
     return([pkmn.venusaur(),pkmn.charizard(),pkmn.blastoise()])
 def professor_oak():
     return([pkmn.tauros(),pkmn.exeggutor(),pkmn.arcanine()])
-trainer_list = [brock(),misty(),lt_surge(),erika(),koga(),sabrina(),blaine(),giovanni(),lorelei(),bruno(),agatha(),lance(),blue(),red(),professor_oak()]
-trainer_names = ["Brock","Misty","Lt. Surge","Erika","Koga","Sabrina","Blaine","Giovanni","Lorelei","Bruno","Agatha","Lance","Blue","Red","Professor Oak"]
+def legendary_trio():
+    return([pkmn.articuno(),pkmn.zapdos(),pkmn.moltres()])
+trainer_list = [brock(),misty(),lt_surge(),erika(),koga(),sabrina(),blaine(),giovanni(),lorelei(),bruno(),agatha(),lance(),blue(),red(),professor_oak(),legendary_trio()]
+trainer_names = ["Brock","Misty","Lt. Surge","Erika","Koga","Sabrina","Blaine","Giovanni","Lorelei","Bruno","Agatha","Lance","Blue","Red","Professor Oak","Legendary Trio"]
