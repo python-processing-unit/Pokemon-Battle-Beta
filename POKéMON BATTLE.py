@@ -1,6 +1,4 @@
-import moves as mv
 import os
-import pokemon as pkmn
 try:
     import win32com.client
 except:
@@ -47,18 +45,6 @@ def effective(e,t1,t2=None):#Attack Type, Defending Pokemon Type 1, Defending Po
         effectiveness *= e[list_index2]
     return effectiveness
 na = None
-def expected_value(pokea,poked,attack_name):
-    if(attack_name.move_type in [ty.fire, ty.water, ty.grass, ty.electric, ty.psychic]):
-        damage = (((14.285714285714286*attack_name.power*(pokea.special/poked.special))/50)+2)*0.925
-    else:
-        damage = (((14.285714285714286*attack_name.power*(pokea.attack/poked.defense))/50)+2)*0.925
-    try:
-        damage = damage * effective(attack_name.move_type,poked.type1,poked.type2)
-    except:
-        damage = damage * effective(attack_name.move_type,poked.type1)
-    if((attack_name.move_type == pokea.type1) or (attack_name.move_type==pokea.type2)):
-        damage = damage * 1.5
-    return(damage*(attack_name.accuracy/100))
     
 #LCG PRNG from Pokémon Gen-I
 class LCG:
