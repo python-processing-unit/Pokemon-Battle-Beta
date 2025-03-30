@@ -151,30 +151,39 @@ def attack(pokea,poked,attack_name,active_attacker):#Attacking Pokemon, Defendin
             else:
                 prnt(opponent_name+"'s "+pokea.name+" used "+attack_name.name)
                 prnt("But it missed")
-#Opponent Logic
+
+def expected_value(attacker, defender, move):
+    try:
+        if(move.move_type in [ty.fire, ty.water, ty.grass, ty.electric, ty.psychic]):
+            damage = (((14.285714285714286*move.power*(attacker.special/defender.special))/50)+2)*(random.randint(85,100)/100)
+        else:
+            damage = (((14.285714285714286*move.power*(attacker.attack/defender.defense))/50)+2)*(random.randint(85,100)/100)
+        damage = damage * effective(move.move_type, defender.type1, defender.type2)
+        if((move.move_type == attacker.type1) or (move.move_type == attacker.type2)):
+            damage = damage * 1.5
+        return damage
+    except:
+        return 0
+
 def opponent_attack():
-    '''dmg = 0
-    if(expected_value(opponent,active,opponent.move1)>dmg):
-        opponent_attack = 1
-        dmg = expected_value(opponent,active,opponent.move1)
-    if(expected_value(opponent,active,opponent.move2)>dmg):
-        opponent_attack = 2
-        dmg = expected_value(opponent,active,opponent.move2)
-    if(expected_value(opponent,active,opponent.move3)>dmg):
-        opponent_attack = 3
-        dmg = expected_value(opponent,active,opponent.move3)
-    if(expected_value(opponent,active,opponent.move4)>dmg):
-        opponent_attack = 4
-        dmg = expected_value(opponent,active,opponent.move4)'''
-    opponent_attack = random.randint(1,4)
+    max_expected_value = 0
+    opponent_attack = None
+    moves = [opponent.move1, opponent.move2, opponent.move3, opponent.move4]
+    for i, move in enumerate(moves, start=1):
+        ev = expected_value(opponent, active, move)
+        if(ev > max_expected_value):
+            max_expected_value = ev
+            opponent_attack = i
+    
     if(opponent_attack==1):
-        attack(opponent,active,opponent.move1,False)
+        attack(opponent, active, opponent.move1, False)
     elif(opponent_attack==2):
-        attack(opponent,active,opponent.move2,False)
+        attack(opponent, active, opponent.move2, False)
     elif(opponent_attack==3):
-        attack(opponent,active,opponent.move3,False)
+        attack(opponent, active, opponent.move3, False)
     elif(opponent_attack==4):
-        attack(opponent,active,opponent.move4,False)
+        attack(opponent, active, opponent.move4, False)
+
 #Code to launch a battle, and the battle logic
 def battle():
     global active
